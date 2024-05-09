@@ -1,5 +1,11 @@
 import { useState } from "react";
-function TaskCreate({ onCreate, task, taskFormUpdate ,onUpdate}) {
+import TasksContext from "../context/task";
+import {useContext } from "react";
+
+function TaskCreate({ task, taskFormUpdate,onUpdate}) {
+
+  const {createTask,editTaskById} = useContext(TasksContext);
+
   const [title, setTitle] = useState(task ? task.title :'');
   const [taskDesc, setTaskDesc] = useState(task ? task.taskDesc :'');
 
@@ -13,10 +19,12 @@ function TaskCreate({ onCreate, task, taskFormUpdate ,onUpdate}) {
     event.preventDefault(); //Sayfayı yenileme
     // setTaskDesc(event.ta rget.value);
     if(taskFormUpdate){
-      onUpdate(task.id,title,taskDesc)
+       onUpdate(task.id,title,taskDesc)
+      // editTaskById(task.id,title,taskDesc);
     }
     else{
-      onCreate(title, taskDesc);
+      // onCreate(title, taskDesc);
+      createTask(title, taskDesc);
     }
    
     setTitle('');
